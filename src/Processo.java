@@ -29,6 +29,9 @@ public class Processo {
         return foiBloqueado;
     }
 
+    public void setFoiBloqueado(boolean foiBloqueado) {
+        this.foiBloqueado = foiBloqueado;
+    }
 
     public void decrementarCiclos(){
         if(this.ciclosNecessarios > 0){
