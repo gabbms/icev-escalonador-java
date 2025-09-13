@@ -36,7 +36,6 @@ public class Processo {
         }
     }
 
-
     @Override
     public String toString(){
         return String.format("[ID: %d, Nome: %s, Prioridade: %d, Ciclos: %d]", id, nome, prioridade, ciclosNecessarios);
