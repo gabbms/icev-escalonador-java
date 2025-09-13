@@ -1,15 +1,15 @@
 public class Scheduler {
-    private FilaCircular lista_alta_prioridade;
-    private FilaCircular lista_media_prioridade;
-    private FilaCircular lista_baixa_prioridade;
-    private FilaCircular lista_bloqueados;
+    private ListaDeProcessos lista_alta_prioridade;
+    private ListaDeProcessos lista_media_prioridade;
+    private ListaDeProcessos lista_baixa_prioridade;
+    private ListaDeProcessos lista_bloqueados;
     private int contador_de_ciclos_alta_prioridade;
 
     public Scheduler(){
-        lista_alta_prioridade = new FilaCircular();
-        lista_media_prioridade = new FilaCircular();
-        lista_baixa_prioridade = new FilaCircular();
-        lista_bloqueados = new FilaCircular();
+        lista_alta_prioridade = new ListaDeProcessos();
+        lista_media_prioridade = new ListaDeProcessos();
+        lista_baixa_prioridade = new ListaDeProcessos();
+        lista_bloqueados = new ListaDeProcessos();
         contador_de_ciclos_alta_prioridade = 0;
     }
 
