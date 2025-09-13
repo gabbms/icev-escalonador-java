@@ -10,7 +10,7 @@ public class FilaCircular {
     }
 
     // inserir no final da fila (FIFO)
-    public void inserir(Processo processo){
+    public void adicionar(Processo processo){
         Node novoNo = new Node(processo);
         if(estaVazia()){
             this.cauda = novoNo;
