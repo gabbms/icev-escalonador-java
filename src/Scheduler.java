@@ -37,7 +37,7 @@ public class Scheduler {
         Processo processoParaExecutar = null;
         boolean antiInanicaoAtivada = false;
 
-        // Prevenção de Inanição (Starvation)
+        // Prevenção de Inanição
         if (contador_ciclos_alta_prioridade >= 5) {
             System.out.println("EVENTO: Prevenção de Inanição Ativada!");
             antiInanicaoAtivada = true;
@@ -72,7 +72,7 @@ public class Scheduler {
                 lista_bloqueados.adicionar(processoParaExecutar); // Adicionado ao final da lista_bloqueados
                 System.out.printf("PROCESSO EM EXECUÇÃO: Nenhum (Processo %s foi bloqueado por 'DISCO')\n", processoParaExecutar.getNome());
             } else {
-                // Simulação de Execução
+
                 System.out.printf("PROCESSO EM EXECUÇÃO: %s\n", processoParaExecutar.toString());
                 processoParaExecutar.decrementarCiclos();
 
@@ -83,7 +83,7 @@ public class Scheduler {
                 }
 
                 if (processoParaExecutar.getCiclosNecessarios() > 0) {
-                    adicionarProcesso(processoParaExecutar); // Reinserido no final da sua lista de origem
+                    adicionarProcesso(processoParaExecutar);
                 } else {
                     System.out.printf("EVENTO: Processo %s terminou a execução.\n", processoParaExecutar.getNome());
                 }

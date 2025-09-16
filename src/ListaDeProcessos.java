@@ -46,28 +46,18 @@ public class ListaDeProcessos {
             return "[ ]";
         }
 
-        // 1. Começa com uma String normal, em vez de um StringBuilder
         String resultado = "[ ";
-
         Node cabeca = cauda.getProximo();
         Node atual = cabeca;
 
         do {
-            // 2. Usa o operador '+=' para concatenar (adicionar) a nova parte à String
             resultado += atual.getProcesso().toString();
-
             atual = atual.getProximo();
-
             if (atual != cabeca) {
-                // 3. Concatena a vírgula e o espaço
                 resultado += ", ";
             }
         } while (atual != cabeca);
-
-        // 4. Concatena o colchete final
         resultado += " ]";
-
-        // 5. Retorna a String final
         return resultado;
     }
 }
