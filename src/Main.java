@@ -4,7 +4,6 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
-        // Verificação de argumentos
         if (args.length < 1) {
             System.out.println("Uso: java Main <caminho_para_arquivo_csv>");
             return;
@@ -13,7 +12,6 @@ public class Main {
         String caminhoArquivo = args[0];
         Scheduler scheduler = new Scheduler();
 
-        // Leitura do arquivo CSV
         try (BufferedReader br = new BufferedReader(new FileReader(caminhoArquivo))) {
             String linha;
 
@@ -38,7 +36,6 @@ public class Main {
             return;
         }
 
-        // Execução dos ciclos até que todos os processos terminem
         int ciclo = 1;
         while (!scheduler.todosProcessosConcluidos()) {
             System.out.println("===== CICLO " + ciclo + " =====");
