@@ -1,5 +1,3 @@
-// Arquivo: Main.java
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -19,10 +17,9 @@ public class Main {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
 
-                // ===== CORREÇÃO IMPORTANTE AQUI =====
-                // Ignora linhas de comentário (começam com #) ou linhas vazias
+
                 if (line.trim().isEmpty() || line.startsWith("#")) {
-                    continue; // Pula para a próxima linha
+                    continue;
                 }
 
                 String[] parts = line.split(",");
