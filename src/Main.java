@@ -1,4 +1,7 @@
-import java.io.*;
+// Arquivo: Main.java
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Main {
@@ -12,12 +15,14 @@ public class Main {
         Scheduler scheduler = new Scheduler();
         String fileName = args[0];
 
-
         try (Scanner scanner = new Scanner(new File(fileName))) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
+
+                // ===== CORREÇÃO IMPORTANTE AQUI =====
+                // Ignora linhas de comentário (começam com #) ou linhas vazias
                 if (line.trim().isEmpty() || line.startsWith("#")) {
-                    continue;
+                    continue; // Pula para a próxima linha
                 }
 
                 String[] parts = line.split(",");
@@ -36,7 +41,6 @@ public class Main {
             System.out.println("Erro ao ler o arquivo. Verifique o formato. Detalhes: " + e.getMessage());
             return;
         }
-
 
         int cicloAtual = 1;
         while (!scheduler.todosProcessosConcluidos()) {
