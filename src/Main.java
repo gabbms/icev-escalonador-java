@@ -1,49 +1,56 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+// Arquivo: Main.java
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        if (args.length < 1) {
-            System.out.println("Uso: java Main <caminho_para_arquivo_csv>");
+        if (args.length == 0) {
+            System.out.println("Erro: Forneça o caminho para o arquivo de processos como argumento.");
+            System.out.println("Exemplo: java Main processos.txt");
             return;
         }
 
-        String caminhoArquivo = args[0];
         Scheduler scheduler = new Scheduler();
+        String fileName = args[0];
 
-        try (BufferedReader br = new BufferedReader(new FileReader(caminhoArquivo))) {
-            String linha;
+        try (Scanner scanner = new Scanner(new File(fileName))) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
 
-            while ((linha = br.readLine()) != null) {
-                // Ignorar cabeçalho
-                if (linha.startsWith("id")) continue;
+                // ===== CORREÇÃO IMPORTANTE AQUI =====
+                // Ignora linhas de comentário (começam com #) ou linhas vazias
+                if (line.trim().isEmpty() || line.startsWith("#")) {
+                    continue; // Pula para a próxima linha
+                }
 
-                String[] dados = linha.split(",");
+                String[] parts = line.split(",");
+                int id = Integer.parseInt(parts[0].trim());
+                String nome = parts[1].trim();
+                int prioridade = Integer.parseInt(parts[2].trim());
+                int ciclos = Integer.parseInt(parts[3].trim());
+                String recurso = (parts.length > 4) ? parts[4].trim() : null;
 
-                int id = Integer.parseInt(dados[0].trim());
-                String nome = dados[1].trim();
-                int prioridade = Integer.parseInt(dados[2].trim());
-                int ciclos = Integer.parseInt(dados[3].trim());
-                String recurso = dados.length > 4 ? dados[4].trim() : null;
-
-                Processo processo = new Processo(id, nome, prioridade, ciclos, recurso);
-                scheduler.adicionarProcesso(processo);
+                scheduler.adicionarProcesso(new Processo(id, nome, prioridade, ciclos, recurso));
             }
-
-        } catch (IOException e) {
-            System.out.println("Erro ao ler o arquivo: " + e.getMessage());
+        } catch (FileNotFoundException e) {
+            System.out.println("Erro: Arquivo não encontrado: " + fileName);
+            return;
+        } catch (Exception e) {
+            System.out.println("Erro ao ler o arquivo. Verifique o formato. Detalhes: " + e.getMessage());
             return;
         }
 
-        int ciclo = 1;
+        int cicloAtual = 1;
         while (!scheduler.todosProcessosConcluidos()) {
-            System.out.println("===== CICLO " + ciclo + " =====");
+            System.out.println("\n------------------- CICLO DE CPU #" + cicloAtual + " -------------------");
             scheduler.executarCicloDeCPU();
-            ciclo++;
-            System.out.println();
+            cicloAtual++;
         }
 
-        System.out.println("Todos os processos foram finalizados.");
+        System.out.println("\n----------------------------------------------------");
+        System.out.println("Todos os processos foram concluídos.");
+        System.out.println("----------------------------------------------------");
     }
 }
